@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function PrimarySearchAppBar({setSearchText, searchText}) {
+export default function PrimarySearchAppBar({setSearchText, searchText, handleOpenpost }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -172,8 +172,9 @@ export default function PrimarySearchAppBar({setSearchText, searchText}) {
             noWrap
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' } }}
+             onClick={()=>{handleOpenpost()}}
           >
-            MUI
+            ADD Restaurant
           </Typography>
           <Search>
             <SearchIconWrapper>

@@ -14,6 +14,8 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -26,12 +28,13 @@ const ExpandMore = styled((props) => {
   }),
 }));
 
-export default function RestarantCard() {
+export default function RestarantCard({restaurantdata, deleteRestaurant, getRestaurantbyid}) {
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
 
   return (
     <Card sx={{ maxWidth: 345 }}>
@@ -46,29 +49,37 @@ export default function RestarantCard() {
             <MoreVertIcon />
           </IconButton>
         }
-        title="Shrimp and Chorizo Paella"
+        title={restaurantdata?.name}
         subheader="September 14, 2016"
       />
       <CardMedia
         component="img"
         height="194"
-        image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQatvc1DxQ-BZ3sUbLgByBvTqoygVLa2zg1AtdkeMtY&s"
+        image={restaurantdata?.image_url}
         alt="Paella dish"
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests. Add 1 cup of frozen peas along with the mussels,
-          if you like.
+          {restaurantdata?.address}
         </Typography>
+        <Typography variant="body2" color="text.secondary">
+           {restaurantdata?.email}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          M {restaurantdata?.mobile}
+        </Typography>
+
       </CardContent>
+
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
+        <IconButton onClick={()=>deleteRestaurant(restaurantdata?.id)} aria-label="add to favorites">
+          <DeleteRoundedIcon />
         </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
+        <IconButton onClick={()=>getRestaurantbyid(restaurantdata?.id)} aria-label="share">
+           <BorderColorIcon  />
+           
         </IconButton>
+
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
@@ -77,8 +88,10 @@ export default function RestarantCard() {
         >
           <ExpandMoreIcon />
         </ExpandMore>
+
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+
+      {/* <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography paragraph>Method:</Typography>
           <Typography paragraph>
@@ -106,7 +119,7 @@ export default function RestarantCard() {
             Set aside off of the heat to let rest for 10 minutes, and then serve.
           </Typography>
         </CardContent>
-      </Collapse>
+      </Collapse> */}
     </Card>
   );
 }

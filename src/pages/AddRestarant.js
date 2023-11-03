@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react';
 import Footer from '../components/Footer'
 import PrimarySearchAppBar from '../components/Navbar';
-import Checkout from '../components/Form';
+//import Checkout from '../components/Form';
 
 
 function AddRestarant() {
@@ -10,7 +10,7 @@ function AddRestarant() {
   return (
     <div>
         <PrimarySearchAppBar setSearchText={setSearchText} searchText={searchText} />
-           <Checkout/> 
+           {/* <Checkout/>  */}
         <Footer/>
     </div>
   )
