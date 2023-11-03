@@ -174,7 +174,9 @@ export default function PrimarySearchAppBar({setSearchText, searchText, handleOp
             sx={{ display: { xs: 'none', sm: 'block' } }}
              onClick={()=>{handleOpenpost()}}
           >
+           <div style={{cursor : "pointer"}} >  
             ADD Restaurant
+            </div>
           </Typography>
           <Search>
             <SearchIconWrapper>

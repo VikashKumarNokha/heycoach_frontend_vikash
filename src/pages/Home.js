@@ -43,14 +43,13 @@ function Home() {
   const handleClosepost = () => setOpenpost(false);
 
    const [restaurantData, setRestaurantData] = useState([]);
-   const [deletedata, setDeletedata] = useState(false);
    const [editdata, setEditdata] = useState({});
    const [addRestaurant, setAddrestaurant] = useState({name : "", image_url : "", address : "", email : "", mobile : "" })
   
 
       useEffect(()=>{
            getRestaurantlist();
-      },[deletedata])
+      },[ ])
 
      function getRestaurantlist(){  
           return  axios.get( baseurl + "get").then((res)=>{
@@ -65,8 +64,8 @@ function Home() {
         return axios.delete(`${baseurl}delete/${id}`).then((res)=>{
              console.log("resss", res.data)
               if(res.data){
-                alert("Data Deleted");
-                setDeletedata(true);
+                alert(" Restaurant Deletion Successfull");
+                getRestaurantlist();
               }
         }).catch((err)=>{
             console.log("err", err);
@@ -84,13 +83,18 @@ function Home() {
       }
 
 
-      function editRestaurant(){   
+      function editRestaurant(){ 
+        
+        if(editdata.name == "" || editdata.image_url == "" || editdata.address == "" ||  editdata.email == "" ||  editdata.phone == "" ){
+          alert("please fill all input boxes")
+       }else{
         return axios.patch(`${baseurl}update/${editdata?.id}`, editdata ).then((res)=>{
-             console.log("eddittted", res.data)
-              alert("data edited")              
+              alert("Restaurant Data Edited successfull") 
+              getRestaurantlist();
         }).catch((err)=>{
             console.log("err", err);
         })
+      }
       }
 
       function addRestaurantfun(){ 
@@ -101,6 +105,7 @@ function Home() {
                   console.log("resssss", res.data)
                   if(res.data){
                     alert("added successfull");
+                    getRestaurantlist();
                   }     
 
           }).catch((err)=>{
@@ -298,8 +303,8 @@ function Home() {
 
        <div style={{display : "flex", justifyContent : "space-evenly", flexWrap :"wrap", margin : "10px"}}>
         {
-          restaurantData.length > 0 && restaurantData.filter((e)=>{ return searchText ? e.name.includes(searchText) : true}).map((e,i)=>{
-           return <div key={e?.id} >
+          restaurantData.length > 0 && restaurantData.filter((e)=>{ return searchText ? e.name.toLowerCase().includes(searchText.toLowerCase()) : true}).map((e,i)=>{
+           return <div key={e?.id} style={{margin : "10px"}}  >
                    <RestarantCard restaurantdata={e} deleteRestaurant={deleteRestaurant} getRestaurantbyid= {getRestaurantbyid} />
                    </div>
           })
