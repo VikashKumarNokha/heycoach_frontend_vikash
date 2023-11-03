@@ -2,7 +2,9 @@ import React from 'react'
 
 function UpdateRestarant() {
   return (
-    <div>UpdateRestarant</div>
+    <div>
+      UpdateRestarant
+      </div>
   )
 }
 
